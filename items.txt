@@ -1,0 +1,14 @@
+burger_261kcal
+chicken_biryani_292kcal
+chicken_fride_rice_343kcal
+white_rice_242kcal
+apple_52kcal
+banana_89kcal
+onion_40kcal
+chicken_curry_110kcal
+chicken_fry_246kcal
+veg_birayani_206kcal
+lemon_29kcal
+spoone
+bowl
+plate

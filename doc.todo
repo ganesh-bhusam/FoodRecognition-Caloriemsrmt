@@ -1,0 +1,128 @@
+Create A Conda Environment and cofigures to activate the Environment ( Anaconda Navigator)
+--> conda create -n yolo_env python=3.8
+--> conda activate yolo_env
+
+
+Install necessary Libraries 
+--> pip install streamlit ultralytics opencv-python-headless
+
+Run App
+--> streamlit run app.py
+
+
+
+import tkinter as tk
+import tkinter.font as font
+from Gesture_Controller import gest_control
+from eye import eye_move
+from samvk import vk_keyboard
+from PIL import Image, ImageTk
+from Proton import proton_chat
+
+# Initialize the Tkinter window
+window = tk.Tk()
+window.title("Gesture Controlled Virtual Mouse and Keyboard")
+window.iconphoto(False, tk.PhotoImage(file='mn.png'))
+# print("debuging")e
+window.geometry('1080x700')
+
+# Frame to hold the widgets
+frame1 = tk.Frame(window)
+
+# Title Label
+label_title = tk.Label(frame1, text="Gesture Controlled Virtual Mouse and Keyboard")
+label_font = font.Font(size=30, weight='bold', family='Helvetica')
+label_title['font'] = label_font
+label_title.grid(pady=(10, 10), column=2)
+
+# Load and display the main icon
+try:
+    icon = Image.open('icons/man.jpeg')
+    icon = icon.resize((450, 350), Image.Resampling.LANCZOS)
+    icon = ImageTk.PhotoImage(icon)
+    label_icon = tk.Label(frame1, image=icon)
+    label_icon.image = icon  # Prevent garbage collection
+    label_icon.grid(row=1, pady=(15, 20), column=2)
+except Exception as e:
+    print(f"Error loading main icon: {e}")
+    exit()
+
+# Load button images with error handling
+def load_image(path, size):
+    try:
+        img = Image.open(path)
+        img = img.resize(size, Image.Resampling.LANCZOS)
+        return ImageTk.PhotoImage(img)
+    except Exception as e:
+        print(f"Error loading image {path}: {e}")
+        exit()
+
+btn1_image = load_image('icons/bot.png', (80, 80))
+btn2_image = load_image('icons/keyboard.png', (80, 80))
+btn5_image = load_image('icons/exit.png', (50, 50))
+btn3_image = load_image('icons/eye.jpeg', (100, 100))
+btn4_image = load_image('icons/hand.png', (80, 80))
+
+# Button font
+btn_font = font.Font(size=25)
+
+# Buttons
+btn1 = tk.Button(frame1, text='VoiceBot', height=200, width=280, fg='green',
+                 command=proton_chat, image=btn1_image, compound='left')
+btn1['font'] = btn_font
+btn1.grid(row=3, pady=(20, 10))
+
+btn2 = tk.Button(frame1, text='Keyboard', height=200, width=280, fg='red',
+                 command=vk_keyboard, image=btn2_image, compound='left')
+btn2['font'] = btn_font
+btn2.grid(row=3, pady=(20, 10), column=3, padx=(20, 10))
+
+btn3 = tk.Button(frame1, text='Eye', height=200, width=280, fg='blue',
+                 command=eye_move, image=btn3_image, compound='left')
+btn3['font'] = btn_font
+btn3.grid(row=5, pady=(20, 10))
+
+btn4 = tk.Button(frame1, text='Gesture', height=200, width=280, fg='orange',
+                 command=gest_control, image=btn4_image, compound='left')
+btn4['font'] = btn_font
+btn4.grid(row=5, pady=(20, 10), column=3)
+
+btn5 = tk.Button(frame1, height=200, width=280, fg='red',
+                 command=window.quit, image=btn5_image)
+btn5['font'] = btn_font
+btn5.grid(row=5, pady=(20, 10), column=2)
+
+# Pack the frame
+frame1.pack()
+
+# Run the Tkinter main loop
+window.mainloop()
+
+
+
+import tkinter as tk
+from PIL import Image, ImageTk
+
+# Initialize Tkinter window
+window = tk.Tk()
+window.title("Test App")
+window.geometry('600x400')
+
+# Load Image with Exception Handling
+try:
+    icon = Image.open('icons/man.jpeg')
+    icon = icon.resize((450, 350), Image.Resampling.LANCZOS)
+    icon = ImageTk.PhotoImage(icon)
+except Exception as e:
+    print(f"Error loading image: {e}")
+    exit()  # Exit the script if an error occurs
+
+# Display the Image
+label_icon = tk.Label(window, image=icon)
+label_icon.image = icon  # Prevent garbage collection
+label_icon.pack()
+
+# Run the Tkinter Mainloop
+window.mainloop()
+
+
